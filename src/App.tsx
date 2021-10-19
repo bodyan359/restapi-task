@@ -5,7 +5,7 @@ import { ChangeEvent, SetStateAction, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-import { Observable, filter, map, reduce, of } from "rxjs";
+import { map, of } from "rxjs";
 
 export default function App() {
   const [data, setData] = useState<any>([]);
@@ -52,23 +52,18 @@ export default function App() {
   };
 
   const handleGroupChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    // console.log(
-    //   "d",
-    //   data.map((el: any) => el)
-    // );
-    let abc: any;
-    let obs = of(data);
-    let a = obs.pipe(
-      filter((el: any) =>
-        el.map((elem: any) => elem.albumId === selectedGroupId)
-      )
-    );
-
-    console.log(abc);
-    a.subscribe((x) => console.log(x));
-
-    // console.log("abs", obs);
     setSelectedGroupId(event.target.value);
+
+    let observableData = of(data);
+    observableData
+      .pipe(
+        map((elements: any[]) => {
+          return elements.filter(
+            (el) => el.albumId === Number(selectedGroupId)
+          );
+        })
+      )
+      .subscribe((x) => setData(x));
   };
 
   const displayBlocks = data
