@@ -75,7 +75,6 @@ export default function App() {
     fetchBlocks();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedGroupId]);
-  console.log(displayData);
 
   const displayBlocks = displayData
     .slice(pageVisited, pageVisited + photosOnPage)
