@@ -56,10 +56,15 @@ export default function App() {
     //   "d",
     //   data.map((el: any) => el)
     // );
-    let obs$ = Observable.of([1, 2, 3, 4]);
-    // let obs = of(data);
-    let a = obs$.pipe(filter((el: any) => el.map((num: any) => num % 2 === 0)));
+    let abc: any;
+    let obs = of(data);
+    let a = obs.pipe(
+      filter((el: any) =>
+        el.map((elem: any) => elem.albumId === selectedGroupId)
+      )
+    );
 
+    console.log(abc);
     a.subscribe((x) => console.log(x));
 
     // console.log("abs", obs);
